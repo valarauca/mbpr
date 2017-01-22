@@ -1,0 +1,7 @@
+[package]
+name = "memcached_bpr"
+version = "0.1.0"
+authors = ["valarauca"]
+
+[dependencies]
+nom = "2.0.1"
