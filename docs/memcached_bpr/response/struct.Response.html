@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Response` struct in crate `memcached_bpr`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Response">
+
+    <title>memcached_bpr::response::Response - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>memcached_bpr</a>::<wbr><a href='index.html'>response</a></p><script>window.sidebarCurrent = {name: 'Response', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>memcached_bpr</a>::<wbr><a href='index.html'>response</a>::<wbr><a class='struct' href=''>Response</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-755' class='srclink' href='../../src/memcached_bpr/src/response.rs.html#128-133' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Response&lt;'a&gt; { /* fields omitted */ }</pre><div class='docblock'><p>Memcached Response Packet</p>
+
+<p>The whole thing</p>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../memcached_bpr/response/struct.Response.html' title='memcached_bpr::response::Response'>Response</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-761' class='srclink' href='../../src/memcached_bpr/src/response.rs.html#127' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../memcached_bpr/response/struct.Response.html' title='memcached_bpr::response::Response'>Response</a>&lt;'a&gt;</code></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../memcached_bpr/response/struct.Response.html' title='memcached_bpr::response::Response'>Response</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-769' class='srclink' href='../../src/memcached_bpr/src/response.rs.html#127' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='trait' href='../../memcached_bpr/trait.ResponseStatus.html' title='memcached_bpr::ResponseStatus'>ResponseStatus</a> for <a class='struct' href='../../memcached_bpr/response/struct.Response.html' title='memcached_bpr::response::Response'>Response</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-119' class='srclink' href='../../src/memcached_bpr/src/response.rs.html#146-151' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.status' class='method'><span id='status.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.ResponseStatus.html#tymethod.status' class='fnname'>status</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../memcached_bpr/status/enum.StatusField.html' title='memcached_bpr::status::StatusField'>StatusField</a>&gt;</code></span></h4>
+<div class='docblock'><p>check&#39;s status field. <a href="../../memcached_bpr/trait.ResponseStatus.html#tymethod.status">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='trait' href='../../memcached_bpr/trait.Op.html' title='memcached_bpr::Op'>Op</a> for <a class='struct' href='../../memcached_bpr/response/struct.Response.html' title='memcached_bpr::response::Response'>Response</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-123' class='srclink' href='../../src/memcached_bpr/src/response.rs.html#152-157' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.get_opcode' class='method'><span id='get_opcode.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.Op.html#tymethod.get_opcode' class='fnname'>get_opcode</a>(&amp;self) -&gt; <a class='enum' href='../../memcached_bpr/opcode/enum.OpCode.html' title='memcached_bpr::opcode::OpCode'>OpCode</a></code></span></h4>
+</div><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='trait' href='../../memcached_bpr/trait.PacketVal.html' title='memcached_bpr::PacketVal'>PacketVal</a> for <a class='struct' href='../../memcached_bpr/response/struct.Response.html' title='memcached_bpr::response::Response'>Response</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-127' class='srclink' href='../../src/memcached_bpr/src/response.rs.html#158-164' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.get_keylen' class='method'><span id='get_keylen.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.PacketVal.html#tymethod.get_keylen' class='fnname'>get_keylen</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+<h4 id='method.get_extralen' class='method'><span id='get_extralen.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.PacketVal.html#tymethod.get_extralen' class='fnname'>get_extralen</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+<h4 id='method.get_bodylen' class='method'><span id='get_bodylen.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.PacketVal.html#tymethod.get_bodylen' class='fnname'>get_bodylen</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+<h4 id='method.get_opaque' class='method'><span id='get_opaque.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.PacketVal.html#tymethod.get_opaque' class='fnname'>get_opaque</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+<h4 id='method.get_cas' class='method'><span id='get_cas.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.PacketVal.html#tymethod.get_cas' class='fnname'>get_cas</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+<h4 id='method.total_len' class='method'><span id='total_len.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.PacketVal.html#method.total_len' class='fnname'>total_len</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+<div class='docblock'><p>The total length of the packet</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='trait' href='../../memcached_bpr/trait.Encoding.html' title='memcached_bpr::Encoding'>Encoding</a> for <a class='struct' href='../../memcached_bpr/response/struct.Response.html' title='memcached_bpr::response::Response'>Response</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-129' class='srclink' href='../../src/memcached_bpr/src/response.rs.html#165-173' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.encode' class='method'><span id='encode.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.Encoding.html#tymethod.encode' class='fnname'>encode</a>(&amp;self, buffer: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;)</code></span></h4>
+<div class='docblock'><p>Encode a packet</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a&gt; <a class='trait' href='../../memcached_bpr/trait.Packet.html' title='memcached_bpr::Packet'>Packet</a>&lt;'a&gt; for <a class='struct' href='../../memcached_bpr/response/struct.Response.html' title='memcached_bpr::response::Response'>Response</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-134' class='srclink' href='../../src/memcached_bpr/src/response.rs.html#174-200' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.has_extra' class='method'><span id='has_extra.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.Packet.html#tymethod.has_extra' class='fnname'>has_extra</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<h4 id='method.has_key' class='method'><span id='has_key.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.Packet.html#tymethod.has_key' class='fnname'>has_key</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<h4 id='method.has_body' class='method'><span id='has_body.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.Packet.html#tymethod.has_body' class='fnname'>has_body</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<h4 id='method.get_extra' class='method'><span id='get_extra.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.Packet.html#tymethod.get_extra' class='fnname'>get_extra</a>(&amp;'a self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;</code></span></h4>
+<h4 id='method.get_key' class='method'><span id='get_key.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.Packet.html#tymethod.get_key' class='fnname'>get_key</a>(&amp;'a self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;</code></span></h4>
+<h4 id='method.get_body' class='method'><span id='get_body.v' class='invisible'><code>fn <a href='../../memcached_bpr/trait.Packet.html#tymethod.get_body' class='fnname'>get_body</a>(&amp;'a self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;</code></span></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "memcached_bpr";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>
