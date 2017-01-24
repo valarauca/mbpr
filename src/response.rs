@@ -40,7 +40,7 @@ macro_rules! pv_builder {
  *Request Header Section
  */
 
-/// Memcached Request Packet Header
+/// Memcached Response Packet Header
 ///
 /// This is the first 24 bytes of the packet
 #[derive(Clone,Debug,PartialEq,Eq)]
@@ -121,7 +121,7 @@ named!(pub parse_res_header<ResHeader>, do_parse!(
  *Request Packet
  */
 
-/// Memcached Request Packet
+/// Memcached Response Packet
 ///
 /// The whole thing
 #[derive(Clone,Debug)]

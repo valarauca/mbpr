@@ -70,7 +70,7 @@ impl Encoding for u16 {
     let arr: [u8;2] = unsafe{ transmute(swap)};
     arr.encode(buffer);
   }
-}   
+}
 impl Encoding for u32 {
   #[inline(always)]
   fn encode(&self, buffer: &mut Vec<u8>) {
@@ -121,7 +121,7 @@ pub trait PacketVal: Op {
       +
     24
   }
-} 
+}
 
 
 /// Trait for all memcached packets
