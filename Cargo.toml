@@ -1,7 +1,14 @@
 [package]
 name = "mbpr"
-version = "0.1.0"
-authors = ["valarauca"]
+version = "0.0.1"
+authors = ["William Cody Laeder <codylaeder@gmail.com>"]
+repository = "https://github.com/valarauca/mbpr.git"
+homepage = "https://github.com/valarauca/mbpr"
+license = "Apache-2.0"
+readme = "README.md"
+documentation = "https://valarauca.github.io/mbpr/mbpr/index.html"
+description = "Memcached binary protocol parser"
+keywords = ["memcached", "parser", "binary"]
 
 [dependencies]
 nom = "2.0.1"
