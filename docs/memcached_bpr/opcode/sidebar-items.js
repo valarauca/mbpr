@@ -1,1 +1,0 @@
-initSidebarItems({"enum":[["OpCode","Memcache Opcodes"]],"fn":[["opcode_parse","Parses an OpCode from a packet."]]});

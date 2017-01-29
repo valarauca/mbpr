@@ -1,10 +1,13 @@
-use super::{Encoding,ResponseStatus};
+
+use super::{
+  Encoding,
+  Encoder
+};
 use super::nom::{
   IResult,
   ErrorKind,
   be_u16
 };
-
 use std::mem;
 
 
@@ -31,7 +34,7 @@ pub enum StatusField {
   Busy = 0x85,
   TemporaryFailure = 0x86
 }
-impl ResponseStatus for StatusField {
+impl StatusField {
   /// Base implementatin of status method
   ///
   /// This just check if the status field
@@ -47,7 +50,7 @@ impl ResponseStatus for StatusField {
   /// The packet is bad. The StatusField value can
   /// never be `StatusField::NoError`
   #[inline(always)]
-  fn status(&self) -> Result<(), StatusField> {
+  pub fn check_status(&self) -> Result<(), StatusField> {
     match *self {
       StatusField::NoError => Ok(()),
       x => Err(x)
@@ -63,7 +66,7 @@ impl Into<u16> for StatusField {
 impl Encoding for StatusField {
   /// Encodes value into packet
   #[inline(always)]
-  fn encode(&self, buffer: &mut Vec<u8>) {
+  fn encode(&self, buffer: &mut Encoder) {
     let val: u16 = self.clone().into();
     val.encode(buffer);
   }
@@ -106,35 +109,52 @@ pub fn status_parse<'a>(i: &'a [u8])
 /*
  *Tests below here
  */
+#[test]
+fn test_status_field() {
+
+use super::{Fault,ParseResult};
+  
 macro_rules! ot {
   ($a: expr, $b: ident) => {
     let value: u16 = $a;
     let sf: StatusField = StatusField::$b;
     assert!(valid_status(value));
     assert_eq!(from_u16(value), sf);
-    let mut v = Vec::with_capacity(20);
+    let mut v = unsafe{Encoder::with_capacity(20)};
     sf.encode(&mut v);
-    v.push(0);
+    v.encode_u8(0);
     assert_eq!(v.len(), 3);
-    let (rem, dut) = status_parse(v.as_slice()).unwrap();
-    assert_eq!(rem.len(), 1);
-    assert_eq!(rem, b"\x00");
+    let dut = match ParseResult::from(status_parse(v.as_slice())) {
+      ParseResult::Ok(x) => x,
+      ParseResult::Err(e) => panic!("Status {:?} should not return error {:?}",value,e)
+    };
     assert_eq!(dut, sf);
     if sf == StatusField::NoError {
-      assert!(sf.status().is_ok());
+      assert!(sf.check_status().is_ok());
     } else {
-      assert_eq!(sf.status().err(), Option::Some(sf));
+      assert_eq!(sf.check_status().err(), Option::Some(sf));
     }
   }
 }
 macro_rules! bt {
   ($a: expr) => {
+   
     let val: u16 = $a;
+    //assert invalid error code
     assert!(  ! valid_status(val));
+
+    //ensure parser works correctly
+    let mut v = unsafe{Encoder::with_capacity(100)};
+    val.encode(&mut v);
+    (0u16).encode(&mut v);
+    match ParseResult::from(status_parse(v.as_slice())) {
+      ParseResult::Ok(x) => panic!("u16 {:?} should not be opcode {:?}", val, x),
+      ParseResult::Err(Fault::BadStatus) => { },
+      ParseResult::Err(e) => panic!("u16 {:?} should retun `Fault::BadStatus` not {:?}", val, e)
+    };
   }
 }
-#[test]
-fn test_status_field() {
+  
   ot!(0, NoError);
   ot!(1, KeyNotFound);
   ot!(2, KeyExists);
@@ -162,33 +182,3 @@ fn test_status_field() {
 
   bt!(0xFFFFu16);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

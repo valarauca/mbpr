@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `OwnedRequest` struct in crate `mbpr`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, OwnedRequest">
+
+    <title>mbpr::OwnedRequest - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>mbpr</a></p><script>window.sidebarCurrent = {name: 'OwnedRequest', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>mbpr</a>::<wbr><a class='struct' href=''>OwnedRequest</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1007' class='srclink' href='../src/mbpr/src/request.rs.html#370-375' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct OwnedRequest {
+    pub key: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;,
+    pub extra: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;,
+    pub body: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;,
+    // some fields omitted
+}</pre><div class='docblock'><p>Clones Buffers</p>
+
+<p>This behaves identical to Request other then the fact
+that the internal <code>body</code>/<code>key</code>/<code>extra</code> fields are owned
+vectors NOT borrowed slices. </p>
+
+<p>This makes life a lot easier when working with the borrow
+checker, and concurrent programming.</p>
+</div><h2 class='fields'>Fields</h2><span id='structfield.key' class='structfield'>
+                           <span id='key.v' class='invisible'>
+                           <code>key: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;</code>
+                           </span></span><span class='stab '></span><span id='structfield.extra' class='structfield'>
+                           <span id='extra.v' class='invisible'>
+                           <code>extra: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;</code>
+                           </span></span><span class='stab '></span><span id='structfield.body' class='structfield'>
+                           <span id='body.v' class='invisible'>
+                           <code>body: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;</code>
+                           </span></span><span class='stab '></span><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../mbpr/struct.OwnedRequest.html' title='mbpr::OwnedRequest'>OwnedRequest</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-170' class='srclink' href='../src/mbpr/src/request.rs.html#376-549' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.parse' class='method'><span id='parse.v' class='invisible'><code>fn <a href='#method.parse' class='fnname'>parse</a>(x: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='enum' href='../mbpr/enum.ParseResult.html' title='mbpr::ParseResult'>ParseResult</a>&lt;Self&gt;</code></span></h4>
+<div class='docblock'><p>Reads a full packet and COPIES it&#39;s buffers into its own.
+Allocation is lazy. Fields that are not used are not allocated.
+Fields are not allocated WHILE parsing, only when complete.</p>
+</div><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>(opcode: <a class='enum' href='../mbpr/enum.OpCode.html' title='mbpr::OpCode'>OpCode</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbucket: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; opaque: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cas: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; extra: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; key: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; body: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; Self</code></span></h4>
+<div class='docblock'><p>This interface does ABSOLUTELY NO verfication of the packet
+it is expected if you are calling this method you understand
+the memcached protocol and you are going to use this to generate
+a valid packet.</p>
+
+<p>The goal of this interface is to be fast. Encoding a packet
+with this interface + Encode trait involves very few branches</p>
+
+<p>Memcached only allows Keys that are ASCII and non-white space
+this interface does not do ANY assertions of this. Please be
+aware.</p>
+</div><h4 id='method.rebuild' class='method'><span id='rebuild.v' class='invisible'><code>fn <a href='#method.rebuild' class='fnname'>rebuild</a>(&amp;mut self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; opcode: <a class='enum' href='../mbpr/enum.OpCode.html' title='mbpr::OpCode'>OpCode</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbucket: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; opaque: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cas: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; extra: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; key: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; body: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;)</code></span></h4>
+<div class='docblock'><p>Over write an existing request</p>
+
+<p>This is provided to allow for easier interfacing with SLAB&#39;s. The
+semantics of this method are identical to the above. The primary
+difference is this doesn&#39;t push ~100 bytes to the stack.</p>
+
+<p>This interface does ABSOLUTELY NO verfication of the packet
+it is expected if you are calling this method you understand
+the memcached protocol and you are going to use this to generate
+a valid packet.</p>
+
+<p>The goal of this interface is to be fast. Encoding a packet
+with this interface + Encode trait involves very few branches</p>
+
+<p>Memcached only allows Keys that are ASCII and non-white space
+this interface does not do ANY assertions of this. Please be
+aware.</p>
+</div><h4 id='method.encode_self' class='method'><span id='encode_self.v' class='invisible'><code>fn <a href='#method.encode_self' class='fnname'>encode_self</a>(&amp;self) -&gt; <a class='struct' href='../mbpr/struct.Encoder.html' title='mbpr::Encoder'>Encoder</a></code></span></h4>
+<div class='docblock'><p>Allocates a new buffer and encodes this packets contents into it.
+this method works out to a handful of <code>memcp</code> primatives and is
+fairly quick as their is no bounds checking (buffer length is
+asserted on construction).</p>
+</div><h4 id='method.encode_into_buffer' class='method'><span id='encode_into_buffer.v' class='invisible'><code>fn <a href='#method.encode_into_buffer' class='fnname'>encode_into_buffer</a>(&amp;self, x: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;) -&gt; <a class='struct' href='../mbpr/struct.Encoder.html' title='mbpr::Encoder'>Encoder</a></code></span></h4>
+<div class='docblock'><p>If you are using a slab to avoid making too many allocations
+this method will check check the <code>Vec&lt;u8&gt;</code> it is passed
+only reserving additional capacity if necessary. If the <code>Vec&lt;u8&gt;</code>
+has enough capacity no action is taken.</p>
+</div><h4 id='method.get_opcode' class='method'><span id='get_opcode.v' class='invisible'><code>fn <a href='#method.get_opcode' class='fnname'>get_opcode</a>(&amp;self) -&gt; <a class='enum' href='../mbpr/enum.OpCode.html' title='mbpr::OpCode'>OpCode</a></code></span></h4>
+<h4 id='method.get_opaque' class='method'><span id='get_opaque.v' class='invisible'><code>fn <a href='#method.get_opaque' class='fnname'>get_opaque</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></span></h4>
+<h4 id='method.get_cas' class='method'><span id='get_cas.v' class='invisible'><code>fn <a href='#method.get_cas' class='fnname'>get_cas</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a></code></span></h4>
+<h4 id='method.get_vbucket_id' class='method'><span id='get_vbucket_id.v' class='invisible'><code>fn <a href='#method.get_vbucket_id' class='fnname'>get_vbucket_id</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code></span></h4>
+<h4 id='method.has_extra' class='method'><span id='has_extra.v' class='invisible'><code>fn <a href='#method.has_extra' class='fnname'>has_extra</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<h4 id='method.get_extra' class='method'><span id='get_extra.v' class='invisible'><code>fn <a href='#method.get_extra' class='fnname'>get_extra</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;</code></span></h4>
+<h4 id='method.has_key' class='method'><span id='has_key.v' class='invisible'><code>fn <a href='#method.has_key' class='fnname'>has_key</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<h4 id='method.get_key' class='method'><span id='get_key.v' class='invisible'><code>fn <a href='#method.get_key' class='fnname'>get_key</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;</code></span></h4>
+<h4 id='method.get_key_str' class='method'><span id='get_key_str.v' class='invisible'><code>fn <a href='#method.get_key_str' class='fnname'>get_key_str</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;</code></span></h4>
+<div class='docblock'><p>The standard states the key should be an ASCII compatible string
+so this method preforms that conversion without checking for
+correctness.</p>
+
+<p>This isnt a <em>problem</em> as the key will be hash/stored as a byte
+buffer anyways.</p>
+
+<p>This really only opens the door to non standard things.</p>
+</div><h4 id='method.has_body' class='method'><span id='has_body.v' class='invisible'><code>fn <a href='#method.has_body' class='fnname'>has_body</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<h4 id='method.get_body' class='method'><span id='get_body.v' class='invisible'><code>fn <a href='#method.get_body' class='fnname'>get_body</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;</code></span></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../mbpr/struct.OwnedRequest.html' title='mbpr::OwnedRequest'>OwnedRequest</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1012' class='srclink' href='../src/mbpr/src/request.rs.html#369' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../mbpr/struct.OwnedRequest.html' title='mbpr::OwnedRequest'>OwnedRequest</a></code></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../mbpr/trait.PacketVal.html' title='mbpr::PacketVal'>PacketVal</a> for <a class='struct' href='../mbpr/struct.OwnedRequest.html' title='mbpr::OwnedRequest'>OwnedRequest</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-235' class='srclink' href='../src/mbpr/src/request.rs.html#550-566' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.get_keylen' class='method'><span id='get_keylen.v' class='invisible'><code>fn <a href='../mbpr/trait.PacketVal.html#tymethod.get_keylen' class='fnname'>get_keylen</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+<div class='docblock'><p>Get size of Packet&#39;s Key Field</p>
+</div><h4 id='method.get_bodylen' class='method'><span id='get_bodylen.v' class='invisible'><code>fn <a href='../mbpr/trait.PacketVal.html#tymethod.get_bodylen' class='fnname'>get_bodylen</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+<div class='docblock'><p>Get size of Packet&#39;s Body Field (Raw Data)</p>
+</div><h4 id='method.get_extralen' class='method'><span id='get_extralen.v' class='invisible'><code>fn <a href='../mbpr/trait.PacketVal.html#tymethod.get_extralen' class='fnname'>get_extralen</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+<div class='docblock'><p>Get size of Packet&#39;s Extra Field (Flags, Arguments, Etc. command specific)</p>
+</div><h4 id='method.total_len' class='method'><span id='total_len.v' class='invisible'><code>fn <a href='../mbpr/trait.PacketVal.html#method.total_len' class='fnname'>total_len</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+<div class='docblock'><p>The total length of the packet</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../mbpr/trait.Encoding.html' title='mbpr::Encoding'>Encoding</a> for <a class='struct' href='../mbpr/struct.OwnedRequest.html' title='mbpr::OwnedRequest'>OwnedRequest</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-242' class='srclink' href='../src/mbpr/src/request.rs.html#567-575' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.encode' class='method'><span id='encode.v' class='invisible'><code>fn <a href='../mbpr/trait.Encoding.html#tymethod.encode' class='fnname'>encode</a>(&amp;self, buffer: &amp;mut <a class='struct' href='../mbpr/struct.Encoder.html' title='mbpr::Encoder'>Encoder</a>)</code></span></h4>
+<div class='docblock'><p>Encode a packet</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "mbpr";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

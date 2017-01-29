@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["parse_request",""],["parse_res_header",""]],"struct":[["ResHeader","Memcached Response Packet Header"],["Response","Memcached Response Packet"]]});

@@ -1,7 +1,8 @@
 [package]
-name = "memcached_bpr"
+name = "mbpr"
 version = "0.1.0"
 authors = ["valarauca"]
 
 [dependencies]
 nom = "2.0.1"
+

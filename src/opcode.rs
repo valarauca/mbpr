@@ -1,4 +1,7 @@
-use super::{Encoding, Op};
+use super::{
+  Encoding,
+  Encoder
+};
 use super::nom::{
   IResult, 
   ErrorKind
@@ -7,7 +10,7 @@ use std::mem;
 
 /// Memcache Opcodes
 ///
-/// v1.6 extensions not supported
+/// All valid commands are supported
 #[repr(u8)]
 #[derive(Copy,Clone,Debug,PartialEq,Eq)]
 pub enum OpCode {
@@ -38,6 +41,15 @@ pub enum OpCode {
   FlushQ = 0x18,
   AppendQ = 0x19,
   PrependQ = 0x1A,
+  Verbosity = 0x1B,
+  Touch = 0x1C,
+  GAT = 0x1D,
+  GATQ = 0x1E,
+  
+  SASLlistmech = 0x20,
+  SASLAuth = 0x21,
+  SASLStep = 0x22,
+  
   RGet = 0x30,
   RSet = 0x31,
   RSetQ = 0x32,
@@ -50,7 +62,18 @@ pub enum OpCode {
   RIncr = 0x39,
   RIncrQ = 0x3A,
   RDecr = 0x3B,
-  RDecrQ = 0x3C
+  RDecrQ = 0x3C,
+  SetVBucket = 0x3D,
+  GetVBucket = 0x3E,
+  DelVBucket = 0x3F,
+  TAPConnect = 0x40,
+  TAPMutate = 0x41,
+  TAPDelete = 0x42,
+  TAPFlush = 0x43,
+  TAPOpaque = 0x44,
+  TAPVBucketSet = 0x45,
+  TAPCheckpointStart = 0x46,
+  TAPCheckpointEnd = 0x47
 }
 impl Into<u8> for OpCode {
   
@@ -66,15 +89,9 @@ impl Into<u8> for OpCode {
 impl Encoding for OpCode {
   /// Writes opcode into `buffer[1]`
   #[inline(always)]
-  fn encode(&self, buffer: &mut Vec<u8>) {
+  fn encode(&self, buffer: &mut Encoder) {
     let val: u8 = self.clone().into();
     val.encode(buffer);
-  }
-}
-impl Op for OpCode {
-  #[inline(always)]
-  fn get_opcode(&self) -> OpCode {
-    self.clone()
   }
 }
 
@@ -97,10 +114,13 @@ pub fn opcode_parse<'a>(i: &'a [u8])
 -> IResult<&'a [u8], OpCode>
 {
   let byte = i[0].clone();
-  if byte <= 0x1A {
+  if byte <= 0x1E {
     return IResult::Done(&i[1..], from_u8(byte));
   }
-  if byte >= 0x030 && byte <= 0x3C {
+  if byte >= 0x30 && byte <= 0x47 {
+    return IResult::Done(&i[1..], from_u8(byte));
+  }
+  if byte >= 0x20 && byte <= 0x22 {
     return IResult::Done(&i[1..], from_u8(byte));
   }
   //memcached's Unknown Command Error
@@ -108,6 +128,11 @@ pub fn opcode_parse<'a>(i: &'a [u8])
 }
 
 
+
+#[test]
+fn test_opcode_decode() {
+
+use super::{Fault,ParseResult};
 /*
  *Abstract test boiler plate
  */
@@ -118,7 +143,12 @@ macro_rules! ot {
     assert_eq!($a, encode);
     assert_eq!(from_u8($a), dut);
     let v: Vec<u8> = vec![ $a, 0x01u8];
-    let (_,parse_out) = opcode_parse(v.as_slice()).unwrap();
+    let p = ParseResult::from(opcode_parse(v.as_slice())); 
+    assert!(p.is_ok());
+    let parse_out = match p {
+      ParseResult::Ok(x) => x,
+      ParseResult::Err(e) => panic!("Value {:?} should be a valid opcode not {:?}",encode, e)
+    };
     assert_eq!(parse_out, dut);
   }
 }
@@ -128,16 +158,17 @@ macro_rules! ot {
  */
 macro_rules! bad_code {
   ($a: expr) => {
-    let v: Vec<u8> = vec![ $a, 0x01 ];
-    match opcode_parse(v.as_slice()) {
-      IResult::Error(ErrorKind::Custom(0x81)) => { },
-      x => panic!("Bad input {:?} on {:?} should have error", x, $a)
+    let dut: u8 = $a;
+    let v: Vec<u8> = vec![ dut, 0x01 ];
+    let p = ParseResult::from(opcode_parse(v.as_slice()));
+    assert!(p.is_err());
+    match p {
+      ParseResult::Err(Fault::BadOpCode) => { },
+      ParseResult::Err(x) => panic!("Opcode {:?} should be `Fault::BadOpCode` not {:?}", dut, x),
+      _ => unreachable!()
     };
   }
 }
-
-#[test]
-fn test_opcode_decode() {
 
   /*
    * Test opcode block
@@ -169,6 +200,25 @@ fn test_opcode_decode() {
   ot!(0x18, FlushQ);
   ot!(0x19, AppendQ);
   ot!(0x1A, PrependQ);
+
+  /*
+   * v1.5 extenesions (not finalized)
+   */
+  ot!(0x1B, Verbosity);
+  ot!(0x1C, Touch);
+  ot!(0x1D, GAT);
+  ot!(0x1E, GATQ);
+ 
+  /*
+   * SASL stuff
+   */
+  ot!(0x20, SASLlistmech);
+  ot!(0x21, SASLAuth);
+  ot!(0x22, SASLStep);
+
+  /*
+   * Normal block
+   */
   ot!(0x30, RGet);
   ot!(0x31, RSet);
   ot!(0x32, RSetQ);
@@ -182,19 +232,41 @@ fn test_opcode_decode() {
   ot!(0x3A, RIncrQ);
   ot!(0x3B, RDecr);
   ot!(0x3C, RDecrQ);
+  
+  /*
+   * v1.6 extensions (not finalized)
+   */
+  ot!(0x3D, SetVBucket);
+  ot!(0x3E, GetVBucket);
+  ot!(0x3F, DelVBucket);
+  ot!(0x40, TAPConnect);
+  ot!(0x41, TAPMutate);
+  ot!(0x42, TAPDelete);
+  ot!(0x43, TAPFlush);
+  ot!(0x44, TAPOpaque);
+  ot!(0x45, TAPVBucketSet);
+  ot!(0x46, TAPCheckpointStart);
+  ot!(0x47, TAPCheckpointEnd);
 
-  //test bad values
-  for i in 0x1Bu8..0x30u8 {
-    let val: u8 = i.clone();
-    bad_code!(val);
+
+  /*
+   * Ensure bad codes are errors
+   */
+
+  // lonely code between standard stuff
+  // and SASL
+  bad_code!(0x1F);
+  
+  //block between SASL and normal block
+  for code in 0x23u8..0x30u8 {
+    bad_code!(code);
   }
 
-  //test rest of values
-  for i in 0x3Du8..0xFFu8 {
-    let val: u8 = i.clone();
-    bad_code!(val);
+  //block to end
+  for code in 0x48u8..0xFFu8 {
+    bad_code!(code);
   }
 
-  //ensure last value is tested
+  //rust loops are range inclusive
   bad_code!(0xFFu8);
 }
