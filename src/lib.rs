@@ -16,7 +16,7 @@
 #[macro_use]
 extern crate nom;
 use nom::{IResult,ErrorKind};
-use std::intrinsics::copy_nonoverlapping;
+use std::ptr::copy_nonoverlapping;
 use std::mem::transmute;
 
 /// Binary Packet Protocols
